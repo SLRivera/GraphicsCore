@@ -136,12 +136,17 @@ HWND GFXCore::Graphics::getHWND() const
 
 void GFXCore::Graphics::onLostDevice()
 {
-
+	sprites.onLostDevice();
 }
 
 void GFXCore::Graphics::onResetDevice()
 {
+	sprites.onResetDevice();
+}
 
+bool GFXCore::Graphics::isDeviceLost()
+{
+	return d3d->isDeviceLost();
 }
 
 

@@ -157,7 +157,6 @@ void D3DCore::drawScene()
 
 void D3DCore::onLostDevice()
 {
-	// TODO: Fix me!
 }
 
 void D3DCore::onResetDevice()
