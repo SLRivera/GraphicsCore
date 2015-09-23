@@ -31,7 +31,6 @@ int GFXCore::Sprites::loadSprite(IDirect3DDevice9* device, const wchar_t* fileNa
 		if (0 == wcscmp(fileName, spriteList[i].strFileName))
 			return i;
 
-
 	SpriteData newSprite;
 	memset(&newSprite, NULL, sizeof(SpriteData));
 	wcscpy_s(newSprite.strFileName, MAX_FILE_NAME, fileName);

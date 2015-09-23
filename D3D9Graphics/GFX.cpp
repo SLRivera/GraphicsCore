@@ -4,6 +4,15 @@ using namespace GFXCore;
 
 Graphics* Graphics::pInstance = NULL;
 
+
+GFXCore::Graphics::Graphics()
+{
+	d3d = D3DCore::get(); 	
+	// TODO: this may introduce bugs due to ordering push_back or push_front
+	modelRenderList.resize(100);
+	spriteRenderList.resize(25);
+}
+
 void GFXCore::Graphics::shutdown()
 {
 	destroyAllVertexDeclarations();
@@ -149,4 +158,33 @@ bool GFXCore::Graphics::isDeviceLost()
 	return d3d->isDeviceLost();
 }
 
+void GFXCore::Graphics::addToModelRenderList(const GSP420::ABC* obj)
+{
+	modelRenderList.assign(nModelListIndex, obj);
+	++nModelListIndex;
+}
 
+void GFXCore::Graphics::addToSpriteRenderList(const int* idsToRender, const int count)
+{
+	for (int i = 0; i < count; ++i) {
+		spriteRenderList.assign(i, idsToRender[i]);
+	}
+	nSpriteListIndex = count;
+}
+
+void GFXCore::Graphics::renderScene()
+{
+	for (int i = 0; i < nModelListIndex; ++i) {
+		models.update(modelRenderList[i]->getModelId(),
+							  modelRenderList[i]->getPosition(),
+							  true, true,
+							  modelRenderList[i]->getFixedRotation(), 
+							  modelRenderList[i]->getScale());
+		models.render(d3d->getDevice(), textures, modelRenderList[i]->getModelId());
+	}
+
+
+
+	nModelListIndex = 0;
+	nSpriteListIndex = 0;
+}

@@ -88,9 +88,9 @@ int Models::loadModel(IDirect3DDevice9* device, const wchar_t* fileName,
 }
 
 void Models::update(const int id, const D3DXVECTOR3& position, 
-											const bool rotChange, const bool scaleChange,
-											const D3DXVECTOR3& rotation, 
-											const D3DXVECTOR3& scaling)
+							 const bool rotChange, const bool scaleChange,
+							 const D3DXVECTOR3& rotation, 
+							 const D3DXVECTOR3& scaling)
 {
 #if defined (_DEBUG) | defined(DEBUG)
 	CHECK_OUT_OF_BOUNDS(id, (int)modelList.size());

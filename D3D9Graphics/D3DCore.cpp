@@ -2,7 +2,9 @@
 #include "Text.h"
 #include "resource.h"
 
+using std::vector;
 using namespace GFXCore;
+using namespace GSP420;
 
 D3DCore*	D3DCore::pInstance = NULL;
 
@@ -149,11 +151,14 @@ bool D3DCore::initGfxCore(const HINSTANCE hInst, const wchar_t* wndCaption, cons
 	return true;
 }
 
-void D3DCore::drawScene()
-{
-	beginScene(RGB(0, 255, 0));
-	endScene();
-}
+// void D3DCore::drawScene()
+// {
+// 	beginScene(RGB(0, 255, 0));
+// 	for (int i = 0; i < nModelListIndex; ++i) {
+// 		modelRenderList[i]->update
+// 	}
+// 	endScene();
+// }
 
 void D3DCore::onLostDevice()
 {
@@ -205,7 +210,6 @@ bool GFXCore::D3DCore::isDeviceLost()
 	else
 		return false;
 }
-
 
 LRESULT CALLBACK
 D3DCore::msgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
