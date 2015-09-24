@@ -4,7 +4,7 @@
  * \author Sam Rivera
  * \date September 2015
  *
- * Last Revision: 9/18/15
+ * Last Revision: 9/23/15
  */
 #pragma once
 #include <list>
@@ -165,7 +165,19 @@ namespace GFXCore
 		//			Capture the returned int in order to access the font after loading it
 		//************************************
 		int loadFont(const FontData& fontData);
+
+		//************************************
+		// Method:    setFont
+		// FullName:  GFXCore::Graphics::setFont
+		// Access:    public 
+		// Returns:   void
+		// Qualifier:
+		// Parameter: const int fontId - the ID of the font to set the string/text to display
+		// Parameter: const wchar_t * newText - the string/text to display
+		// Notes: Call this function after loading a font to set that font's text to display
+		//************************************
 		void setFont(const int fontId, const wchar_t* newText);
+
 		//************************************
 		// Method:    loadSprite
 		// FullName:  GFXCore::Graphics::loadSprite
@@ -246,17 +258,53 @@ namespace GFXCore
 		// Notes: NONE
 		//************************************
 		void cameraSetLens(const int width, const int height, const float nearZ, const float farZ);
-		void cameraSetPos(const D3DXVECTOR3& pos);
+		//void cameraSetPos(const D3DXVECTOR3& pos);
 
-// 		// TODO: remove only for testing
-// 		void beginScene(D3DCOLOR clearColor); 
-// 		// TODO: remove only for testing
-// 		void endScene(); 
-
+		//************************************
+		// Method:    renderScene
+		// FullName:  GFXCore::Graphics::renderScene
+		// Access:    public 
+		// Returns:   void
+		// Qualifier:
+		// Notes: Call once per scene. Most populate each scene with calls to
+		//  		 addToModelRenderList(), addToSpriteRenderList(), addToTextRenderList(). 
+		//************************************
 		void renderScene();
 
+		//************************************
+		// Method:    addToModelRenderList
+		// FullName:  GFXCore::Graphics::addToModelRenderList
+		// Access:    public 
+		// Returns:   void
+		// Qualifier:
+		// Parameter: const GSP420::ABC * obj - the object to be rendered
+		// Notes: Call this function as you iterate through object lists to add them to the 
+		//			  render list before rendering
+		//************************************
 		void addToModelRenderList(const GSP420::ABC* obj);
+
+		//************************************
+		// Method:    addToSpriteRenderList
+		// FullName:  GFXCore::Graphics::addToSpriteRenderList
+		// Access:    public 
+		// Returns:   void
+		// Qualifier:
+		// Parameter: const int * idsToRender - an array holding the captured ID for the loaded sprites you wish to render 
+		// Parameter: const int count - the number of sprites to render
+		// Notes: Call this function to add the ID's of the sprites that have been loaded to be rendered
+		//************************************
 		void addToSpriteRenderList(const int* idsToRender, const int count);
+
+		//************************************
+		// Method:    addToTextRenderList
+		// FullName:  GFXCore::Graphics::addToTextRenderList
+		// Access:    public 
+		// Returns:   void
+		// Qualifier:
+		// Parameter: const int * idsToRender - the ID's of the fonts/string you wish to render
+		// Parameter: const int count - the number of fonts/strings to render
+		// Notes: Call this function to add the ID's of the fonts/sprites that have been loaded to be rendered
+		//************************************
 		void addToTextRenderList(const int* idsToRender, const int count);
 		
 		//************************************
@@ -323,32 +371,6 @@ namespace GFXCore
 
 		static inline void del();
 		void updateCamera(const float dt);
-
-		//************************************
-		// Method:    renderSprites
-		// FullName:  GFXCore::Graphics::renderSprites
-		// Access:    public 
-		// Returns:   void
-		// Qualifier:
-		// Notes: NONE
-		//************************************
-		// TODO: for testing, will make private once I make the function using the render list
-	//	void renderSprites();
-
-		//************************************
-		// Method:    renderText
-		// FullName:  GFXCore::Graphics::renderText
-		// Access:    public 
-		// Returns:   void
-		// Qualifier:
-		// Parameter: const int id - the captured ID of the font
-		// Parameter: const wchar_t * displayText - the text to display
-		// Notes: 
-		//************************************
-		// TODO: for testing, will make private once I make the function using the render list
-	//	void renderText(const int id);
-		// TODO: for testing, will make private once I make the function using the render list
-	//	void renderModel(const int id);
 
 		Graphics();
 		Graphics(const Graphics&);

@@ -101,10 +101,10 @@ void GFXCore::Graphics::cameraSetLens(const int width, const int height, const f
 	camera.setOrthoLens(d3d->getDevice(), width, height, nearZ, farZ);
 }
 
-void GFXCore::Graphics::cameraSetPos(const D3DXVECTOR3& pos)
-{
-	camera.pos() = pos;
-}
+// void GFXCore::Graphics::cameraSetPos(const D3DXVECTOR3& pos)
+// {
+// 	camera.pos() = pos;
+// }
 
 void GFXCore::Graphics::updateCamera(const float dt)
 {
@@ -188,7 +188,7 @@ void GFXCore::Graphics::addToSpriteRenderList(const int* idsToRender, const int 
 		return;
 	}
 #endif
-	if (count >= spriteRenderList.size())
+	if (count >= (signed)spriteRenderList.size())
 		spriteRenderList.resize(spriteRenderList.size() * 2);
 
 	for (int i = 0; i < count; ++i) {
@@ -206,7 +206,7 @@ void GFXCore::Graphics::addToTextRenderList(const int* idsToRender, const int co
 		return;
 	}
 #endif
-	if (count >= textRenderList.size())
+	if (count >= (signed)textRenderList.size())
 		textRenderList.resize(textRenderList.size() * 2);
 
 	for (int i = 0; i < count; ++i) {
@@ -231,9 +231,8 @@ void GFXCore::Graphics::renderScene()
 	}
 
 	sprites.beginDraw();
-	for (int i = 0; i < nSpriteListIndex; ++i) {
+	for (int i = 0; i < nSpriteListIndex; ++i) 
 		sprites.render(spriteRenderList[i], textures);
-	}
 	sprites.endDraw();
 
 	for (int i = 0; i < nTextListIndex; ++i)

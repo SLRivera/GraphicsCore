@@ -16,7 +16,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, in
 		return 0;
 
 	int m = GFX->loadModel(L"..\\GraphicsCoreTests\\Assets\\PlayerSPaceShipV2.X", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.80f, 1.80f, 1.80f));
-	GFX->cameraSetPos(D3DXVECTOR3(0.0f, 0.0f, -0.0f));
+//	GFX->cameraSetPos(D3DXVECTOR3(0.0f, 0.0f, -0.0f));
 	GFX->cameraSetLens(GFX->windowWidth(), GFX->windowHeight(), -1000.0f, 1000.0f);
 
 	Test obj1 = Test(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.20f, 1.20f, 1.20f));
