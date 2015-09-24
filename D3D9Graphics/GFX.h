@@ -107,6 +107,15 @@ namespace GFXCore
 		//************************************
 		void onResetDevice();
 
+		//************************************
+		// Method:    isDeviceLost
+		// FullName:  GFXCore::Graphics::isDeviceLost
+		// Access:    public 
+		// Returns:   bool
+		// Qualifier:
+		// Notes: Call at the beginning of each frame to determine if we still have access to the 
+		//			 graphics card
+		//************************************
 		bool isDeviceLost();
 
 		//************************************
@@ -167,8 +176,8 @@ namespace GFXCore
 		int loadFont(const FontData& fontData);
 
 		//************************************
-		// Method:    setFont
-		// FullName:  GFXCore::Graphics::setFont
+		// Method:    setTextForFont
+		// FullName:  GFXCore::Graphics::setTextForFont
 		// Access:    public 
 		// Returns:   void
 		// Qualifier:
@@ -176,7 +185,7 @@ namespace GFXCore
 		// Parameter: const wchar_t * newText - the string/text to display
 		// Notes: Call this function after loading a font to set that font's text to display
 		//************************************
-		void setFont(const int fontId, const wchar_t* newText);
+		void setTextForFont(const int fontId, const wchar_t* newText);
 
 		//************************************
 		// Method:    loadSprite
@@ -258,7 +267,6 @@ namespace GFXCore
 		// Notes: NONE
 		//************************************
 		void cameraSetLens(const int width, const int height, const float nearZ, const float farZ);
-		//void cameraSetPos(const D3DXVECTOR3& pos);
 
 		//************************************
 		// Method:    renderScene

@@ -245,7 +245,7 @@ void GFXCore::Graphics::renderScene()
 	nTextListIndex = 0;
 }
 
-void GFXCore::Graphics::setFont(const int fontId, const wchar_t* newText)
+void GFXCore::Graphics::setTextForFont(const int fontId, const wchar_t* newText)
 {
 	text.setText(fontId, newText);
 }

@@ -119,7 +119,7 @@ bool D3DCore::initDirect3D(const D3DDEVTYPE requestedDevtype, const DWORD reques
 	presentParams.BackBufferFormat	= D3DFMT_UNKNOWN;
 	presentParams.BackBufferCount		= 1;
 	presentParams.MultiSampleType	= D3DMULTISAMPLE_8_SAMPLES;
-	presentParams.MultiSampleQuality = 3;
+	presentParams.MultiSampleQuality = 1;
 	presentParams.SwapEffect			= D3DSWAPEFFECT_DISCARD;
 	presentParams.hDeviceWindow		= hHwnd;
 	presentParams.Windowed				= true;
@@ -151,15 +151,6 @@ bool D3DCore::initGfxCore(const HINSTANCE hInst, const wchar_t* wndCaption, cons
 	return true;
 }
 
-// void D3DCore::drawScene()
-// {
-// 	beginScene(RGB(0, 255, 0));
-// 	for (int i = 0; i < nModelListIndex; ++i) {
-// 		modelRenderList[i]->update
-// 	}
-// 	endScene();
-// }
-
 void D3DCore::onLostDevice()
 {
 	// TODO: Fix me!
@@ -182,25 +173,19 @@ void GFXCore::D3DCore::shutdown()
 
 bool GFXCore::D3DCore::isDeviceLost()
 {
-	// Get the state of the graphics device.
 	HRESULT hr = pD3DDevice->TestCooperativeLevel();
 
-	// If the device is lost and cannot be reset yet then
-	// sleep for a bit and we'll try again on the next 
-	// message loop cycle.
 	if (hr == D3DERR_DEVICELOST)
 	{
 		Sleep(20);
 		return true;
 	}
-	// Driver error, exit.
 	else if (hr == D3DERR_DRIVERINTERNALERROR)
 	{
 		MessageBox(0, L"Internal Driver Error...Exiting", 0, 0);
 		PostQuitMessage(0);
 		return true;
 	}
-	// The device is lost but we can reset and restore it.
 	else if (hr == D3DERR_DEVICENOTRESET)
 	{
 		onLostDevice();
