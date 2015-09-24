@@ -118,8 +118,8 @@ bool D3DCore::initDirect3D(const D3DDEVTYPE requestedDevtype, const DWORD reques
 	presentParams.BackBufferHeight	= 0;
 	presentParams.BackBufferFormat	= D3DFMT_UNKNOWN;
 	presentParams.BackBufferCount		= 1;
-	// 	md3dPP.MultiSampleType            = D3DMULTISAMPLE_8_SAMPLES;
-	// 	md3dPP.MultiSampleQuality         = 3;
+	presentParams.MultiSampleType	= D3DMULTISAMPLE_8_SAMPLES;
+	presentParams.MultiSampleQuality = 3;
 	presentParams.SwapEffect			= D3DSWAPEFFECT_DISCARD;
 	presentParams.hDeviceWindow		= hHwnd;
 	presentParams.Windowed				= true;

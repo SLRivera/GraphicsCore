@@ -67,20 +67,20 @@ void Sprites::shutdow()
 	spriteList.resize(0);
 }
 
-void GFXCore::Sprites::render(Textures& textures)
+void GFXCore::Sprites::render(const int id, Textures& textures)
 {
-	pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-	for (unsigned int i = 0; i < spriteList.size(); ++i) {
-		HRESULT hr = pSprite->Draw(textures.getTexture(spriteList[i].nTextureId),
-												 spriteList[i].bHasClipRect == true ? &spriteList[i].clipRect : NULL,
-												 spriteList[i].bCenterIsTopLeft == true ? NULL : &spriteList[i].center,
-												 &spriteList[i].position,
-												 spriteList[i].color);
+	
+	//for (unsigned int i = 0; i < spriteIds.size(); ++i) {
+		HRESULT hr = pSprite->Draw(textures.getTexture(spriteList[id].nTextureId),
+												spriteList[id].bHasClipRect == true ? &spriteList[id].clipRect : NULL,
+												spriteList[id].bCenterIsTopLeft == true ? NULL : &spriteList[id].center,
+												&spriteList[id].position,
+												spriteList[id].color);
 
 		if (FAILED(hr))
 			ErrorMsg(L"Sprite Draw Failure!", L"Sprites::render()");
-	}
-	pSprite->End();
+//	}
+	
 }
 
 void GFXCore::Sprites::update(const int id, const D3DXVECTOR3& newPos)

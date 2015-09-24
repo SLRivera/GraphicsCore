@@ -7,11 +7,13 @@ Graphics* Graphics::pInstance = NULL;
 
 GFXCore::Graphics::Graphics() :
 nModelListIndex(0),
-nSpriteListIndex(0)
+nSpriteListIndex(0),
+nTextListIndex(0)
 {
 	d3d = D3DCore::get(); 	
 	modelRenderList.resize(100);
 	spriteRenderList.resize(25);
+	textRenderList.resize(10);
 }
 
 void GFXCore::Graphics::shutdown()
@@ -84,15 +86,15 @@ int GFXCore::Graphics::loadShader(const wchar_t* fileName, const char* techName,
 	return shaders.loadShader(d3d->getDevice(), fileName, techName, worldMatName);
 }
 
-void GFXCore::Graphics::renderText(const int id, const wchar_t* displayText)
-{
-	text.render(id, displayText);
-}
-
-void GFXCore::Graphics::renderModel(const int id)
-{
-	models.render(d3d->getDevice(), textures, id);
-}
+// void GFXCore::Graphics::renderText(const int id)
+// {
+// 	text.render(id);
+// }
+// 
+// void GFXCore::Graphics::renderModel(const int id)
+// {
+// 	models.render(d3d->getDevice(), textures, id);
+// }
 
 void GFXCore::Graphics::cameraSetLens(const int width, const int height, const float nearZ, const float farZ)
 {
@@ -109,20 +111,20 @@ void GFXCore::Graphics::updateCamera(const float dt)
 	camera.update(dt, 0.0f);
 }
 
-void GFXCore::Graphics::renderSprites()
-{
-	sprites.render(textures);
-}
+// void GFXCore::Graphics::renderSprites()
+// {
+// 	sprites.render(textures, TODO);
+// }
 
-void GFXCore::Graphics::beginScene(D3DCOLOR clearColor)
-{
-	d3d->beginScene(clearColor);
-}
-
-void GFXCore::Graphics::endScene()
-{
-	d3d->endScene();
-}
+// void GFXCore::Graphics::beginScene(D3DCOLOR clearColor)
+// {
+// 	d3d->beginScene(clearColor);
+// }
+// 
+// void GFXCore::Graphics::endScene()
+// {
+// 	d3d->endScene();
+// }
 
 int GFXCore::Graphics::windowWidth() const
 {
@@ -161,6 +163,13 @@ bool GFXCore::Graphics::isDeviceLost()
 
 void GFXCore::Graphics::addToModelRenderList(const GSP420::ABC* obj)
 {
+#if defined DEBUG | _DEBUG
+	if (NULL == obj) {
+		ErrorMsg(L"Passing NULL", L"Graphics::addToModelRenderList()");
+		return;
+	}
+#endif
+
 	if ((unsigned int)nModelListIndex + 1 < modelRenderList.size()) {
 		modelRenderList[nModelListIndex] = obj;
 		++nModelListIndex;
@@ -173,17 +182,46 @@ void GFXCore::Graphics::addToModelRenderList(const GSP420::ABC* obj)
 
 void GFXCore::Graphics::addToSpriteRenderList(const int* idsToRender, const int count)
 {
-	for (int i = 0; i < count; ++i) {
-		spriteRenderList.assign(i + 1, idsToRender[i]);
+#if defined DEBUG | _DEBUG
+	if (NULL == idsToRender) {
+		ErrorMsg(L"Passing NULL", L"Graphics::addToSpriteRenderList()");
+		return;
 	}
+#endif
+	if (count >= spriteRenderList.size())
+		spriteRenderList.resize(spriteRenderList.size() * 2);
+
+	for (int i = 0; i < count; ++i) {
+		spriteRenderList[i] = idsToRender[i];
+	}
+
 	nSpriteListIndex = count;
+}
+
+void GFXCore::Graphics::addToTextRenderList(const int* idsToRender, const int count)
+{
+#if defined DEBUG | _DEBUG
+	if (NULL == idsToRender) {
+		ErrorMsg(L"Passing NULL", L"Graphics::addToTextRenderList()");
+		return;
+	}
+#endif
+	if (count >= textRenderList.size())
+		textRenderList.resize(textRenderList.size() * 2);
+
+	for (int i = 0; i < count; ++i) {
+		textRenderList[i] = idsToRender[i];
+	}
+
+	nTextListIndex = count;
 }
 
 void GFXCore::Graphics::renderScene()
 {
-	beginScene(D3DCOLOR_XRGB(0, 0, 100));
+	d3d->beginScene(D3DCOLOR_XRGB(0, 0, 100));
 
 	for (int i = 0; i < nModelListIndex; ++i) {
+		// might move to an update scene function
 		models.update(modelRenderList[i]->getModelId(),
 							  modelRenderList[i]->getPosition(),
 							  true, true,
@@ -192,8 +230,24 @@ void GFXCore::Graphics::renderScene()
 		models.render(d3d->getDevice(), textures, modelRenderList[i]->getModelId());
 	}
 
-	endScene();
+	sprites.beginDraw();
+	for (int i = 0; i < nSpriteListIndex; ++i) {
+		sprites.render(spriteRenderList[i], textures);
+	}
+	sprites.endDraw();
+
+	for (int i = 0; i < nTextListIndex; ++i)
+		text.render(textRenderList[i]);
+
+	d3d->endScene();
 
 	nModelListIndex = 0;
 	nSpriteListIndex = 0;
+	nTextListIndex = 0;
 }
+
+void GFXCore::Graphics::setFont(const int fontId, const wchar_t* newText)
+{
+	text.setText(fontId, newText);
+}
+

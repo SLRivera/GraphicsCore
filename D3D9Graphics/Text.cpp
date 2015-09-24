@@ -16,9 +16,9 @@ Text::~Text()
 
 int Text::createFont(IDirect3DDevice9* device, const FontData& textInfo)
 {
-	for (unsigned int i = 0; i < fontList.size(); ++i)
-		if (0 == wcscmp(textInfo.strFontName, fontList[i].strFontName))
-			return i;
+// 	for (unsigned int i = 0; i < fontList.size(); ++i)
+// 		if (0 == wcscmp(textInfo.strFontName, fontList[i].strFontName))
+// 			return i;
 
  	FontData newFont;
  	memset(&newFont, NULL, sizeof(FontData));
@@ -33,13 +33,13 @@ int Text::createFont(IDirect3DDevice9* device, const FontData& textInfo)
 	return ++nIdGenerator;
 }
 
-void Text::render(const int fontId, const wchar_t* displayText)
+void GFXCore::Text::render(const int fontId)
 {
 #if defined (_DEBUG) | defined(DEBUG)
 	CHECK_OUT_OF_BOUNDS(fontId, (int)fontList.size());
 #endif
 
-	HR(fontList[fontId].pFont->DrawTextW(NULL, displayText, -1, &(fontList[fontId].textBoxDimens),
+	HR(fontList[fontId].pFont->DrawTextW(NULL, fontList[fontId].strText, -1, &(fontList[fontId].textBoxDimens),
 											DT_CENTER, fontList[fontId].textColor));
 }
 

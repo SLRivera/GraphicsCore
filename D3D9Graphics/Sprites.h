@@ -28,7 +28,10 @@ namespace GFXCore
 							RECT* clipRect);
 		void update(const int id, const D3DXVECTOR3& newPos);
 		void shutdow();
-		void render(Textures& textures);
+		void render(const int id, Textures& textures);
+		
+		inline void beginDraw();
+		inline void endDraw();
 		inline void onLostDevice();
 		inline void onResetDevice();
 
@@ -47,6 +50,9 @@ namespace GFXCore
 	};
 
 	SpriteData& Sprites::getSprite(const int id)		{ return spriteList[id]; }
+
+	void Sprites::beginDraw()	{ pSprite->Begin(D3DXSPRITE_ALPHABLEND); }
+	void Sprites::endDraw() { pSprite->End(); }
 
 	void GFXCore::Sprites::onLostDevice() {
 		if (pSprite)

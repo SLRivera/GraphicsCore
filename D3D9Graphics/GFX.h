@@ -165,7 +165,7 @@ namespace GFXCore
 		//			Capture the returned int in order to access the font after loading it
 		//************************************
 		int loadFont(const FontData& fontData);
-
+		void setFont(const int fontId, const wchar_t* newText);
 		//************************************
 		// Method:    loadSprite
 		// FullName:  GFXCore::Graphics::loadSprite
@@ -248,42 +248,17 @@ namespace GFXCore
 		void cameraSetLens(const int width, const int height, const float nearZ, const float farZ);
 		void cameraSetPos(const D3DXVECTOR3& pos);
 
-		// TODO: remove only for testing
-		void beginScene(D3DCOLOR clearColor); 
-		// TODO: remove only for testing
-		void endScene(); 
+// 		// TODO: remove only for testing
+// 		void beginScene(D3DCOLOR clearColor); 
+// 		// TODO: remove only for testing
+// 		void endScene(); 
 
 		void renderScene();
 
 		void addToModelRenderList(const GSP420::ABC* obj);
 		void addToSpriteRenderList(const int* idsToRender, const int count);
+		void addToTextRenderList(const int* idsToRender, const int count);
 		
-		//************************************
-		// Method:    renderSprites
-		// FullName:  GFXCore::Graphics::renderSprites
-		// Access:    public 
-		// Returns:   void
-		// Qualifier:
-		// Notes: NONE
-		//************************************
-		// TODO: for testing, will make private once I make the function using the render list
-		void renderSprites();
-
-		//************************************
-		// Method:    renderText
-		// FullName:  GFXCore::Graphics::renderText
-		// Access:    public 
-		// Returns:   void
-		// Qualifier:
-		// Parameter: const int id - the captured ID of the font
-		// Parameter: const wchar_t * displayText - the text to display
-		// Notes: 
-		//************************************
-		// TODO: for testing, will make private once I make the function using the render list
-		void renderText(const int id, const wchar_t* displayText);
-		// TODO: for testing, will make private once I make the function using the render list
-		void renderModel(const int id);
-
 		//************************************
 		// Method:    windowWidth
 		// FullName:  GFXCore::Graphics::windowWidth
@@ -338,16 +313,42 @@ namespace GFXCore
 	private:
 		std::vector<const GSP420::ABC*>		modelRenderList;
 		std::vector<int>								spriteRenderList;
+		std::vector<int>								textRenderList;
 
 		static Graphics*	pInstance;
 
 		int		nSpriteListIndex;
 		int		nModelListIndex;
+		int		nTextListIndex;
 
 		static inline void del();
 		void updateCamera(const float dt);
-// 		void renderModels();
-// 		void renderSprites();
+
+		//************************************
+		// Method:    renderSprites
+		// FullName:  GFXCore::Graphics::renderSprites
+		// Access:    public 
+		// Returns:   void
+		// Qualifier:
+		// Notes: NONE
+		//************************************
+		// TODO: for testing, will make private once I make the function using the render list
+	//	void renderSprites();
+
+		//************************************
+		// Method:    renderText
+		// FullName:  GFXCore::Graphics::renderText
+		// Access:    public 
+		// Returns:   void
+		// Qualifier:
+		// Parameter: const int id - the captured ID of the font
+		// Parameter: const wchar_t * displayText - the text to display
+		// Notes: 
+		//************************************
+		// TODO: for testing, will make private once I make the function using the render list
+	//	void renderText(const int id);
+		// TODO: for testing, will make private once I make the function using the render list
+	//	void renderModel(const int id);
 
 		Graphics();
 		Graphics(const Graphics&);

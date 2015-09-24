@@ -65,7 +65,8 @@ int Models::loadModel(IDirect3DDevice9* device, const wchar_t* fileName,
 			// TODO: change this to actual directory when all cores combined
 			char append[MAX_FILE_NAME] = "..\\GraphicsCoreTests\\Assets\\";
 			strcat_s(append, modelMats[i].pTextureFilename);
-			mbstowcs(wstr, append, MAX_FILE_NAME);
+			size_t inputBuff;
+			mbstowcs_s(&inputBuff, wstr, append, MAX_FILE_NAME);
 			int texId = textures.loadTexture(device, wstr);
 			modelData.textureList.push_back(texId);
 		}
@@ -115,9 +116,9 @@ void Models::render(IDirect3DDevice9* device, Textures& textures, const int id)
 	HR(device->SetSamplerState(1, D3DSAMP_MINFILTER, D3DTEXF_LINEAR));
 	HR(device->SetSamplerState(1, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR));
 	HR(device->SetSamplerState(1, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR));
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	device->SetRenderState(D3DRS_LIGHTING, FALSE);
-	device->SetRenderState(D3DRS_LIGHTING, D3DLIGHT_DIRECTIONAL);
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+// 	device->SetRenderState(D3DRS_LIGHTING, FALSE);
+// 	device->SetRenderState(D3DRS_LIGHTING, D3DLIGHT_DIRECTIONAL);
 	device->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_ARGB(255, 255, 255, 255));
 	device->SetTransform(D3DTS_WORLD, &modelList[id].worldTranformMat);
 	device->SetMaterial(&modelList[id].materialList[0]);
