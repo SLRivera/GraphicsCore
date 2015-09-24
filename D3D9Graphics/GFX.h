@@ -246,6 +246,7 @@ namespace GFXCore
 		// Notes: NONE
 		//************************************
 		void cameraSetLens(const int width, const int height, const float nearZ, const float farZ);
+		void cameraSetPos(const D3DXVECTOR3& pos);
 
 		// TODO: remove only for testing
 		void beginScene(D3DCOLOR clearColor); 
@@ -345,7 +346,6 @@ namespace GFXCore
 
 		static inline void del();
 		void updateCamera(const float dt);
-		void cameraSetPos(const D3DXVECTOR3& pos);
 // 		void renderModels();
 // 		void renderSprites();
 

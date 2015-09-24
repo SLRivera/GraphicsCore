@@ -67,7 +67,7 @@ bool D3DCore::initMainWnd(const HINSTANCE hInst, const wchar_t* wndCaption,
 	nWidth = width;
 
 	hHwnd = CreateWindow(wc.lpszClassName, strMainWndCaption,
-									WS_OVERLAPPEDWINDOW,
+									WS_POPUPWINDOW,
 									(GetSystemMetrics(SM_CXSCREEN) >> 1) - (nWidth >> 1),
 									(GetSystemMetrics(SM_CYSCREEN) >> 1) - (nHeight >> 1),
 									nWidth, nHeight,
@@ -162,6 +162,7 @@ bool D3DCore::initGfxCore(const HINSTANCE hInst, const wchar_t* wndCaption, cons
 
 void D3DCore::onLostDevice()
 {
+	// TODO: Fix me!
 }
 
 void D3DCore::onResetDevice()

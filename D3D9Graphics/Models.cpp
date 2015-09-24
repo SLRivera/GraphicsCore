@@ -118,7 +118,7 @@ void Models::render(IDirect3DDevice9* device, Textures& textures, const int id)
 	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	device->SetRenderState(D3DRS_LIGHTING, FALSE);
 	device->SetRenderState(D3DRS_LIGHTING, D3DLIGHT_DIRECTIONAL);
-	device->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_ARGB(255, 255, 255, 0));
+	device->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_ARGB(255, 255, 255, 255));
 	device->SetTransform(D3DTS_WORLD, &modelList[id].worldTranformMat);
 	device->SetMaterial(&modelList[id].materialList[0]);
 	device->SetTexture(0, textures.getTexture(modelList[id].textureList[0]));

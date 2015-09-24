@@ -36,11 +36,14 @@ namespace GSP420
 		inline bool isEnabled() const;
 		inline void toggleEnabled();
 
-		ABC();
-		ABC(const ABC&);
-		virtual ~ABC() = 0;
 
-	private:
+		inline void setPosition(const D3DXVECTOR3& pos);
+
+		ABC() {}
+		ABC(const ABC&) {}
+		virtual ~ABC() = 0 {}
+
+	protected:
 		D3DXVECTOR3		position;
 		D3DXVECTOR3		velocity;
 		D3DXVECTOR3		fixedRotation;
@@ -55,7 +58,6 @@ namespace GSP420
 
 		bool bEnabled;
 
-// 		inline void setPosition(const D3DXVECTOR3& pos);
 // 		inline void setVelocity(const D3DXVECTOR3& velo);
 // 		inline void setFixedRotation(const D3DXVECTOR3& rot);
 // 		inline void setHealth(const int health);
@@ -72,11 +74,13 @@ namespace GSP420
 	int ABC::getModelId() const	{ return nModelId; }
 	int ABC::getTextureId() const { return nTextureId; }
 	bool ABC::isEnabled() const	{ return bEnabled; }
-// 	void ABC::setPosition(const D3DXVECTOR3& pos)		{ position = pos; }
+	void ABC::toggleEnabled()		{ bEnabled = !bEnabled; }
+
+
+	 	void ABC::setPosition(const D3DXVECTOR3& pos)		{ position = pos; }
 // 	void ABC::setVelocity(const D3DXVECTOR3& velo)	{ velocity = velo; }
 // 	void ABC::setFixedRotation(const D3DXVECTOR3& rot)	{ fixedRotation = rot; }
 // 	void ABC::setHealth(const int health)		{ nHealth = health; }
-// 	void ABC::toggleEnabled()		{ bEnabled = !bEnabled; }
 // 	void ABC::setEnabled(const bool enabled)		{ bEnabled = enabled; }
 // 	void ABC::setObjectType(ObjType e)	{ eType = e; }
 }

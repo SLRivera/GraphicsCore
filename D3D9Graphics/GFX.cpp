@@ -5,10 +5,11 @@ using namespace GFXCore;
 Graphics* Graphics::pInstance = NULL;
 
 
-GFXCore::Graphics::Graphics()
+GFXCore::Graphics::Graphics() :
+nModelListIndex(0),
+nSpriteListIndex(0)
 {
 	d3d = D3DCore::get(); 	
-	// TODO: this may introduce bugs due to ordering push_back or push_front
 	modelRenderList.resize(100);
 	spriteRenderList.resize(25);
 }
@@ -160,20 +161,28 @@ bool GFXCore::Graphics::isDeviceLost()
 
 void GFXCore::Graphics::addToModelRenderList(const GSP420::ABC* obj)
 {
-	modelRenderList.assign(nModelListIndex, obj);
-	++nModelListIndex;
+	if ((unsigned int)nModelListIndex + 1 < modelRenderList.size()) {
+		modelRenderList[nModelListIndex] = obj;
+		++nModelListIndex;
+	}
+	else {
+		modelRenderList.push_back(obj);
+		++nModelListIndex;
+	}
 }
 
 void GFXCore::Graphics::addToSpriteRenderList(const int* idsToRender, const int count)
 {
 	for (int i = 0; i < count; ++i) {
-		spriteRenderList.assign(i, idsToRender[i]);
+		spriteRenderList.assign(i + 1, idsToRender[i]);
 	}
 	nSpriteListIndex = count;
 }
 
 void GFXCore::Graphics::renderScene()
 {
+	beginScene(D3DCOLOR_XRGB(0, 0, 100));
+
 	for (int i = 0; i < nModelListIndex; ++i) {
 		models.update(modelRenderList[i]->getModelId(),
 							  modelRenderList[i]->getPosition(),
@@ -183,7 +192,7 @@ void GFXCore::Graphics::renderScene()
 		models.render(d3d->getDevice(), textures, modelRenderList[i]->getModelId());
 	}
 
-
+	endScene();
 
 	nModelListIndex = 0;
 	nSpriteListIndex = 0;
