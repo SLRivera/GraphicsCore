@@ -72,6 +72,18 @@ int Models::loadModel(IDirect3DDevice9* device, const wchar_t* fileName,
 		}
 	}
 
+	DWORD* adj = new DWORD[modelData.pMesh->GetNumFaces() * 3];
+	if (NULL == adj) {
+		ErrorMsg(L"Out of Memory", L"Models::init()");
+		return -1;
+	}
+	
+	HR(modelData.pMesh->GenerateAdjacency(1e-6f, adj));
+	HR(modelData.pMesh->OptimizeInplace(D3DXMESHOPT_VERTEXCACHE | D3DXMESHOPT_ATTRSORT, adj, NULL, NULL, NULL));
+
+	delete[] adj;
+	adj = NULL;
+
 	D3DXMatrixIdentity(&modelData.translationMat);
 	D3DXMatrixIdentity(&modelData.rotationMat);
 	D3DXMatrixIdentity(&modelData.scalingMat);
