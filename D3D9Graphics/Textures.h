@@ -21,8 +21,8 @@ namespace GFXCore
 		void shutdown();
 		
 		inline IDirect3DTexture9* getTexture(const int id);
-		inline int getTextureWidth(const int id);
-		inline int getTextureHeight(const int id);
+		inline int getTextureWidth(const int id) const;
+		inline int getTextureHeight(const int id) const;
 
 		Textures();
 		~Textures();
@@ -36,6 +36,6 @@ namespace GFXCore
 
 
 	IDirect3DTexture9* GFXCore::Textures::getTexture(const int id)	{ return texList[id].pTex; }
-	int Textures::getTextureHeight(const int id)		{ return texList[id].nHeight; }
-	int Textures::getTextureWidth(const int id)		{ return texList[id].nWidth; }
+	int Textures::getTextureHeight(const int id)	 const	{ return texList[id].nHeight; }
+	int Textures::getTextureWidth(const int id) const		{ return texList[id].nWidth; }
 }

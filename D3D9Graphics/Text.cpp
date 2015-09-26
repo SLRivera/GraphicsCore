@@ -16,10 +16,6 @@ Text::~Text()
 
 int Text::createFont(IDirect3DDevice9* device, const FontData& textInfo)
 {
-// 	for (unsigned int i = 0; i < fontList.size(); ++i)
-// 		if (0 == wcscmp(textInfo.strFontName, fontList[i].strFontName))
-// 			return i;
-
  	FontData newFont;
  	memset(&newFont, NULL, sizeof(FontData));
 	newFont = textInfo;

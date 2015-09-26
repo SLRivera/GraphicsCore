@@ -49,7 +49,7 @@ int GFXCore::Sprites::loadSprite(IDirect3DDevice9* device, const wchar_t* fileNa
 		newSprite.center.y = (float)textures.getTextureHeight(newSprite.nTextureId) * 0.5f;
 	}
 
-	if (NULL != clipRect) {
+	if (clipRect) {
 		newSprite.clipRect = *clipRect;
 		newSprite.bHasClipRect = true;
 	}
@@ -69,18 +69,18 @@ void Sprites::shutdow()
 
 void GFXCore::Sprites::render(const int id, Textures& textures)
 {
-	
-	//for (unsigned int i = 0; i < spriteIds.size(); ++i) {
-		HRESULT hr = pSprite->Draw(textures.getTexture(spriteList[id].nTextureId),
-												spriteList[id].bHasClipRect == true ? &spriteList[id].clipRect : NULL,
-												spriteList[id].bCenterIsTopLeft == true ? NULL : &spriteList[id].center,
-												&spriteList[id].position,
-												spriteList[id].color);
+#if defined (_DEBUG) | defined(DEBUG)
+	CHECK_OUT_OF_BOUNDS(id, (int)spriteList.size());
+#endif
 
-		if (FAILED(hr))
-			ErrorMsg(L"Sprite Draw Failure!", L"Sprites::render()");
-//	}
-	
+	HRESULT hr = pSprite->Draw(textures.getTexture(spriteList[id].nTextureId),
+											spriteList[id].bHasClipRect == true ? &spriteList[id].clipRect : NULL,
+											spriteList[id].bCenterIsTopLeft == true ? NULL : &spriteList[id].center,
+											&spriteList[id].position,
+											spriteList[id].color);
+
+	if (FAILED(hr))
+		ErrorMsg(L"Sprite Draw Failure!", L"Sprites::render()");
 }
 
 void GFXCore::Sprites::update(const int id, const D3DXVECTOR3& newPos)

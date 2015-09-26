@@ -14,15 +14,11 @@ namespace GFXCore
 								const D3DDEVTYPE requestedDevtype,
 								const DWORD requestedVP);
 		void shutdown();
-	//	void updateScene(const float dt);
-
-	//	void drawScene();
 		void onLostDevice();
 		void onResetDevice();
 		bool checkDeviceCaps();
 		bool isDeviceLost();
 		void setFullScreenMode(bool enable);
-	//	LRESULT msgProc(UINT msg, WPARAM wParam, LPARAM lParam);
 		LRESULT CALLBACK msgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 		// accessors ////////////////////////////////////////////////////////
@@ -32,9 +28,9 @@ namespace GFXCore
 		inline IDirect3DDevice9* getDevice() const;
 		inline int getWndHeight() const;
 		inline int getWndWidth() const;
-// 		inline const std::vector<const GSP420::ABC*>&	getModelsToRender();
-// 		inline const std::vector<int>&	getSpritesToRender();
 		inline D3DPRESENT_PARAMETERS& getPresentParams();
+		inline void beginScene(const D3DCOLOR clearColor);
+		inline void endScene();
 
 		static inline D3DCore* get();
 
@@ -61,10 +57,8 @@ namespace GFXCore
 		D3DCore();
 		virtual ~D3DCore();
 
-		// HACK: for now
 	public:
-		inline void beginScene(const D3DCOLOR clearColor);
-		inline void endScene();
+
 
 	private:
  		static D3DCore*	pInstance;
@@ -79,8 +73,6 @@ namespace GFXCore
 	int D3DCore::getWndHeight() const { return get()->nHeight; }
 	int D3DCore::getWndWidth() const  { return get()->nWidth; }
 	D3DPRESENT_PARAMETERS& D3DCore::getPresentParams()  { return get()->presentParams; }
-// 	const std::vector<const GSP420::ABC*>&	D3DCore::getModelsToRender() { return modelRenderList; }
-// 	const std::vector<int>&	D3DCore::getSpritesToRender() { return spriteRenderList; }
 
 	void D3DCore::beginScene(const D3DCOLOR clearColor) {
 		HR(pD3DDevice->Clear(0, NULL, /*D3DCLEAR_STENCIL | */D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clearColor, 1.0f, 0));

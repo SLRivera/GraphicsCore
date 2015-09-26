@@ -28,7 +28,7 @@ int Textures::loadTexture(IDirect3DDevice9* device, const wchar_t* fileName)
 
 	TexureData tex;
 	memset(&tex, NULL, sizeof(TexureData));
-	wcscpy_s(tex.strFileName, 256, fileName);
+	wcscpy_s(tex.strFileName, MAX_FILE_NAME, fileName);
 
 	D3DXIMAGE_INFO texInfo;
 	memset(&texInfo, NULL, sizeof(D3DXIMAGE_INFO));
@@ -36,7 +36,7 @@ int Textures::loadTexture(IDirect3DDevice9* device, const wchar_t* fileName)
 	HR(D3DXGetImageInfoFromFile(tex.strFileName, &texInfo));
 	tex.nHeight = texInfo.Height;
 	tex.nWidth = texInfo.Width; 
-
+	
 	if (FAILED(D3DXCreateTextureFromFile(device, tex.strFileName, &tex.pTex))) {
 		ErrorMsg(L"Create Texture Failure.", fileName);
 		return -1;

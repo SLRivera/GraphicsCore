@@ -1,3 +1,4 @@
+#include "GFX.h"
 #include "D3DCore.h"
 #include "Text.h"
 #include "resource.h"
@@ -153,12 +154,12 @@ bool D3DCore::initGfxCore(const HINSTANCE hInst, const wchar_t* wndCaption, cons
 
 void D3DCore::onLostDevice()
 {
-	// TODO: Fix me!
+	// does nothing for now, it is in GFX
 }
 
 void D3DCore::onResetDevice()
 {
-	// TODO: Fix me!
+	// does nothing for now, it is in GFX
 }
 
 
@@ -188,9 +189,9 @@ bool GFXCore::D3DCore::isDeviceLost()
 	}
 	else if (hr == D3DERR_DEVICENOTRESET)
 	{
-		onLostDevice();
+		GFX->onLostDevice();
 		HR(pD3DDevice->Reset(&presentParams));
-		onResetDevice();
+		GFX->onResetDevice();
 		return false;
 	}
 	else
@@ -206,7 +207,7 @@ D3DCore::msgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch (msg)
 	{
 	case WM_SIZE:
-		if (D3DCore::get()->getDevice())
+		if (pD3DDevice)
 		{
 			presentParams.BackBufferWidth = LOWORD(lParam);
 			presentParams.BackBufferHeight = HIWORD(lParam);
@@ -218,17 +219,17 @@ D3DCore::msgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			else if (wParam == SIZE_MAXIMIZED)
 			{
 				minOrMaxed = true;
-				onLostDevice();
+				GFX->onLostDevice();
 				HR(pD3DDevice->Reset(&presentParams));
-				onResetDevice();
+				GFX->onResetDevice();
 			}
 			else if (wParam == SIZE_RESTORED)
 			{
 				if (minOrMaxed && D3DCore::get()->getPresentParams().Windowed)
 				{
-					onLostDevice();
+					GFX->onLostDevice();
 					HR(pD3DDevice->Reset(&presentParams));
-					onResetDevice();
+					GFX->onResetDevice();
 				}
 			
 				minOrMaxed = false;
@@ -240,9 +241,9 @@ D3DCore::msgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		GetClientRect(hHwnd, &clientRect);
 		presentParams.BackBufferWidth = clientRect.right;
 		presentParams.BackBufferHeight = clientRect.bottom;
-		onLostDevice();
+		GFX->onLostDevice();
 		HR(pD3DDevice->Reset(&presentParams));
-		onResetDevice();
+		GFX->onResetDevice();
 
 		return 0;
 

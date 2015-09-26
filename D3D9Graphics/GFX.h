@@ -141,6 +141,8 @@ namespace GFXCore
 		//				after loading
 		//************************************
 		int loadTexture(const wchar_t* fileName);
+		int getTextureWidth(const int id);	// TODO: might make private
+		int getTextureHeight(const int id); // TODO: might make private
 
 		//************************************
 		// Method:    loadModel
@@ -188,29 +190,6 @@ namespace GFXCore
 		void setTextForFont(const int fontId, const wchar_t* newText);
 
 		//************************************
-		// Method:    loadSprite
-		// FullName:  GFXCore::Graphics::loadSprite
-		// Access:    public 
-		// Returns:   int -  capture this integer in order to reference the sprite after loading
-		// Qualifier:
-		// Parameter: const wchar_t * fileName - the filename of the sprite to load
-		// Parameter: const bool centerIsTopLeft - set to false if you want the center to 
-		//															be the center of the sprite instead of 
-		//															the top left corner
-		// Parameter: const D3DXVECTOR3 & initPos - the initial position of the sprite
-		// Parameter: D3DCOLOR initColor - the initial color of the sprite
-		// Parameter: RECT * clipRect - the clipping rectangle dimensions. Pass NULL if 
-		//											the entire sprite is to be drawn
-		// Notes: Use this function to load a sprite. Capture the returned int so that you can 
-		//				access the sprite after loading it.
-		//************************************
-		int loadSprite(const wchar_t* fileName, 
-							const bool centerIsTopLeft = true,
-							const D3DXVECTOR3& initPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f), 
-							D3DCOLOR initColor = D3DCOLOR_RGBA(255, 255, 255, 255),
-							RECT* clipRect = NULL);
-
-		//************************************
 		// Method:    loadShader
 		// FullName:  GFXCore::Graphics::loadShader
 		// Access:    public 
@@ -253,6 +232,31 @@ namespace GFXCore
 		// Notes: NONE
 		//************************************
 		void updateSprite(const int id, const D3DXVECTOR3& position);
+
+		//************************************
+		// Method:    loadSprite
+		// FullName:  GFXCore::Graphics::loadSprite
+		// Access:    public 
+		// Returns:   int -  capture this integer in order to reference the sprite after loading
+		// Qualifier:
+		// Parameter: const wchar_t * fileName - the filename of the sprite to load
+		// Parameter: const bool centerIsTopLeft - set to false if you want the center to 
+		//															be the center of the sprite instead of 
+		//															the top left corner
+		// Parameter: const D3DXVECTOR3 & initPos - the initial position of the sprite
+		// Parameter: D3DCOLOR initColor - the initial color of the sprite
+		// Parameter: RECT * clipRect - the clipping rectangle dimensions. Pass NULL if 
+		//											the entire sprite is to be drawn
+		// Notes: Use this function to load a sprite. Capture the returned int so that you can 
+		//				access the sprite after loading it.
+		//************************************
+		int loadSprite(const wchar_t* fileName,
+							const bool centerIsTopLeft = true,
+							const D3DXVECTOR3& initPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f),
+							D3DCOLOR initColor = D3DCOLOR_RGBA(255, 255, 255, 255),
+							RECT* clipRect = NULL);
+		int getSpriteWidth(const int id);
+		int getSpriteHeight(const int id);
 
 		//************************************
 		// Method:    cameraSetLens

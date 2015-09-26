@@ -86,45 +86,15 @@ int GFXCore::Graphics::loadShader(const wchar_t* fileName, const char* techName,
 	return shaders.loadShader(d3d->getDevice(), fileName, techName, worldMatName);
 }
 
-// void GFXCore::Graphics::renderText(const int id)
-// {
-// 	text.render(id);
-// }
-// 
-// void GFXCore::Graphics::renderModel(const int id)
-// {
-// 	models.render(d3d->getDevice(), textures, id);
-// }
-
 void GFXCore::Graphics::cameraSetLens(const int width, const int height, const float nearZ, const float farZ)
 {
 	camera.setOrthoLens(d3d->getDevice(), width, height, nearZ, farZ);
 }
 
-// void GFXCore::Graphics::cameraSetPos(const D3DXVECTOR3& pos)
-// {
-// 	camera.pos() = pos;
-// }
-
 void GFXCore::Graphics::updateCamera(const float dt)
 {
 	camera.update(dt, 0.0f);
 }
-
-// void GFXCore::Graphics::renderSprites()
-// {
-// 	sprites.render(textures, TODO);
-// }
-
-// void GFXCore::Graphics::beginScene(D3DCOLOR clearColor)
-// {
-// 	d3d->beginScene(clearColor);
-// }
-// 
-// void GFXCore::Graphics::endScene()
-// {
-// 	d3d->endScene();
-// }
 
 int GFXCore::Graphics::windowWidth() const
 {
@@ -148,12 +118,16 @@ HWND GFXCore::Graphics::getHWND() const
 
 void GFXCore::Graphics::onLostDevice()
 {
+	d3d->onLostDevice();
 	sprites.onLostDevice();
+	text.onLostDevice();
 }
 
 void GFXCore::Graphics::onResetDevice()
 {
+	d3d->onResetDevice();
 	sprites.onResetDevice();
+	text.onResetDevice();
 }
 
 bool GFXCore::Graphics::isDeviceLost()
@@ -188,6 +162,7 @@ void GFXCore::Graphics::addToSpriteRenderList(const int* idsToRender, const int 
 		return;
 	}
 #endif
+
 	if (count >= (signed)spriteRenderList.size())
 		spriteRenderList.resize(spriteRenderList.size() * 2);
 
@@ -221,12 +196,11 @@ void GFXCore::Graphics::renderScene()
 	d3d->beginScene(D3DCOLOR_XRGB(0, 0, 100));
 
 	for (int i = 0; i < nModelListIndex; ++i) {
-		// might move to an update scene function
-		models.update(modelRenderList[i]->getModelId(),
-							  modelRenderList[i]->getPosition(),
-							  true, true,
-							  modelRenderList[i]->getFixedRotation(), 
-							  modelRenderList[i]->getScale());
+ 		models.update(modelRenderList[i]->getModelId(),
+ 							  modelRenderList[i]->getPosition(),
+ 							  true, true,
+ 							  modelRenderList[i]->getFixedRotation(), 
+ 							  modelRenderList[i]->getScale());
 		models.render(d3d->getDevice(), textures, modelRenderList[i]->getModelId());
 	}
 
@@ -248,5 +222,26 @@ void GFXCore::Graphics::renderScene()
 void GFXCore::Graphics::setTextForFont(const int fontId, const wchar_t* newText)
 {
 	text.setText(fontId, newText);
+}
+
+int GFXCore::Graphics::getTextureWidth(const int id)
+{
+	return textures.getTextureWidth(id);
+}
+
+int GFXCore::Graphics::getTextureHeight(const int id)
+{
+	return textures.getTextureHeight(id);
+}
+
+int GFXCore::Graphics::getSpriteWidth(const int id)
+{
+	return textures.getTextureWidth(sprites.getSprite(id).nTextureId);
+}
+
+int GFXCore::Graphics::getSpriteHeight(const int id)
+{
+	return textures.getTextureHeight(sprites.getSprite(id).nTextureId);
+
 }
 

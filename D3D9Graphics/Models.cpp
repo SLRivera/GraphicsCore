@@ -120,7 +120,7 @@ void Models::render(IDirect3DDevice9* device, Textures& textures, const int id)
 	device->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_ARGB(255, 255, 255, 255));
 	device->SetTransform(D3DTS_WORLD, &modelList[id].worldTranformMat);
 	device->SetMaterial(&modelList[id].materialList[0]);
-	device->SetTexture(0, textures.getTexture(modelList[id].textureList[0]));
+	//device->SetTexture(0, textures.getTexture(modelList[id].textureList[0]));
 	modelList[id].pMesh->DrawSubset(0);
 }
 
