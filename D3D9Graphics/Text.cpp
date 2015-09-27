@@ -14,11 +14,11 @@ Text::~Text()
 {
 }
 
-int Text::createFont(IDirect3DDevice9* device, const FontData& textInfo)
+int GFXCore::Text::createFont(IDirect3DDevice9* device, const FontData& textCreationInfo)
 {
  	FontData newFont;
  	memset(&newFont, NULL, sizeof(FontData));
-	newFont = textInfo;
+	newFont = textCreationInfo;
 	
 	if (FAILED(D3DXCreateFont(device, newFont.nFontHeight, newFont.nFontWidth, FW_NORMAL, 0, newFont.bItalics, DEFAULT_CHARSET,
 										   OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
@@ -35,8 +35,8 @@ void GFXCore::Text::render(const int fontId)
 	CHECK_OUT_OF_BOUNDS(fontId, (int)fontList.size());
 #endif
 
-	HR(fontList[fontId].pFont->DrawTextW(NULL, fontList[fontId].strText, -1, &(fontList[fontId].textBoxDimens),
-											DT_CENTER, fontList[fontId].textColor));
+	HR(fontList[fontId].pFont->DrawTextW(NULL, fontList[fontId].strText, -1, &(fontList[fontId].fontBoxDimens),
+											DT_CENTER, fontList[fontId].fontColor));
 }
 
 void Text::shutdown()

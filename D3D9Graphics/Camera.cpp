@@ -7,52 +7,52 @@ using namespace GFXCore;
 
 Camera::Camera()
 {
-	D3DXMatrixIdentity(&m_view);
-	D3DXMatrixIdentity(&m_proj);
-	D3DXMatrixIdentity(&m_viewProj);
+	D3DXMatrixIdentity(&viewMat);
+	D3DXMatrixIdentity(&projMat);
+	D3DXMatrixIdentity(&viewProjMat);
 
-	m_posW = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_rightW = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-	m_upW = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	m_lookW = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+	vPosWorld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	vRigthWorld = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+	vUpWorld = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	vLlookWorld = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 
 	
-	m_speed = 50.0f;
+	fSpeed = 50.0f;
 }
 
-const D3DXMATRIX& Camera::view() const
+const D3DXMATRIX& Camera::getView() const
 {
-	return m_view;
+	return viewMat;
 }
 
-const D3DXMATRIX& Camera::proj() const
+const D3DXMATRIX& Camera::getProj() const
 {
-	return m_proj;
+	return projMat;
 }
 
-const D3DXMATRIX& Camera::viewProj() const
+const D3DXMATRIX& Camera::getViewProj() const
 {
-	return m_viewProj;
+	return viewProjMat;
 }
 
-const D3DXVECTOR3& Camera::right() const
+const D3DXVECTOR3& Camera::getRight() const
 {
-	return m_rightW;
+	return vRigthWorld;
 }
 
-const D3DXVECTOR3& Camera::up() const
+const D3DXVECTOR3& Camera::getUp() const
 {
-	return m_upW;
+	return vUpWorld;
 }
 
-const D3DXVECTOR3& Camera::look() const
+const D3DXVECTOR3& Camera::getLook() const
 {
-	return m_lookW;
+	return vLlookWorld;
 }
 
 D3DXVECTOR3& Camera::pos()
 {
-	return m_posW;
+	return vPosWorld;
 }
 
 void Camera::lookAt(D3DXVECTOR3& pos, D3DXVECTOR3& target, D3DXVECTOR3& up)
@@ -68,46 +68,46 @@ void Camera::lookAt(D3DXVECTOR3& pos, D3DXVECTOR3& target, D3DXVECTOR3& up)
 	D3DXVec3Cross(&U, &L, &R);
 	D3DXVec3Normalize(&U, &U);
 
-	m_posW = pos;
-	m_rightW = R;
-	m_upW = U;
-	m_lookW = L;
+	vPosWorld = pos;
+	vRigthWorld = R;
+	vUpWorld = U;
+	vLlookWorld = L;
 
 	buildView();
 //	buildWorldFrustumPlanes();
 
-	m_viewProj = m_view * m_proj;
+	viewProjMat = viewMat * projMat;
 }
 
 void GFXCore::Camera::setPerspectiveLens(IDirect3DDevice9* device, float fov, float aspect, float nearZ, float farZ)
 {
- 	device->SetTransform(D3DTS_WORLD, &m_proj);
-  	device->SetTransform(D3DTS_VIEW, &m_proj);
+ 	device->SetTransform(D3DTS_WORLD, &projMat);
+  	device->SetTransform(D3DTS_VIEW, &projMat);
 
-	D3DXMatrixPerspectiveFovLH(&m_proj, fov, aspect, nearZ, farZ);
+	D3DXMatrixPerspectiveFovLH(&projMat, fov, aspect, nearZ, farZ);
 	//buildWorldFrustumPlanes();
-	device->SetTransform(D3DTS_PROJECTION, &m_proj);
+	device->SetTransform(D3DTS_PROJECTION, &projMat);
 	
 	buildView();
-	m_viewProj = m_view * m_proj;
+	viewProjMat = viewMat * projMat;
 }
 
 void GFXCore::Camera::setOrthoLens(IDirect3DDevice9* device, const int width, const int height, const float nearZ, const float farZ)
 {
-	device->SetTransform(D3DTS_WORLD, &m_proj);
-	device->SetTransform(D3DTS_VIEW, &m_proj);
+	device->SetTransform(D3DTS_WORLD, &projMat);
+	device->SetTransform(D3DTS_VIEW, &projMat);
 
-	D3DXMatrixOrthoLH(&m_proj, (float)width, (float)height, nearZ, farZ);
+	D3DXMatrixOrthoLH(&projMat, (float)width, (float)height, nearZ, farZ);
 	//buildWorldFrustumPlanes();
-	device->SetTransform(D3DTS_PROJECTION, &m_proj);
+	device->SetTransform(D3DTS_PROJECTION, &projMat);
 
 	buildView();
-	m_viewProj = m_view * m_proj;
+	viewProjMat = viewMat * projMat;
 }
 
 void Camera::setSpeed(float s)
 {
-	m_speed = s;
+	fSpeed = s;
 }
 
 void Camera::update(float dt, float offsetHeight)
@@ -116,17 +116,17 @@ void Camera::update(float dt, float offsetHeight)
 	// camera could be running and strafing).
 	D3DXVECTOR3 dir(0.0f, 0.0f, 0.0f);
  	if (gDInput->keyDown(DIK_W))
- 		dir += m_lookW;
+ 		dir += vLlookWorld;
  	if (gDInput->keyDown(DIK_S))
- 		dir -= m_lookW;
+ 		dir -= vLlookWorld;
  	if (gDInput->keyDown(DIK_D))
- 		dir += m_rightW;
+ 		dir += vRigthWorld;
  	if (gDInput->keyDown(DIK_A))
- 		dir -= m_rightW;
+ 		dir -= vRigthWorld;
 
 	// Move at m_speed along net direction.
 	D3DXVec3Normalize(&dir, &dir);
-	D3DXVECTOR3 newPos = m_posW + dir*m_speed*dt;
+	D3DXVECTOR3 newPos = vPosWorld + dir*fSpeed*dt;
 
 // 	if (terrain != 0)
 // 	{
@@ -150,7 +150,7 @@ void Camera::update(float dt, float offsetHeight)
 // 	}
 // 	else
 // 	{
-		m_posW = newPos;
+		vPosWorld = newPos;
 //	}
 
 
@@ -161,28 +161,28 @@ void Camera::update(float dt, float offsetHeight)
 
 	// Rotate camera's look and up vectors around the camera's right vector.
 	D3DXMATRIX R;
-	D3DXMatrixRotationAxis(&R, &m_rightW, pitch);
-	D3DXVec3TransformCoord(&m_lookW, &m_lookW, &R);
-	D3DXVec3TransformCoord(&m_upW, &m_upW, &R);
+	D3DXMatrixRotationAxis(&R, &vRigthWorld, pitch);
+	D3DXVec3TransformCoord(&vLlookWorld, &vLlookWorld, &R);
+	D3DXVec3TransformCoord(&vUpWorld, &vUpWorld, &R);
 
 
 	// Rotate camera axes about the world's y-axis.
 	D3DXMatrixRotationY(&R, yAngle);
-	D3DXVec3TransformCoord(&m_rightW, &m_rightW, &R);
-	D3DXVec3TransformCoord(&m_upW, &m_upW, &R);
-	D3DXVec3TransformCoord(&m_lookW, &m_lookW, &R);
+	D3DXVec3TransformCoord(&vRigthWorld, &vRigthWorld, &R);
+	D3DXVec3TransformCoord(&vUpWorld, &vUpWorld, &R);
+	D3DXVec3TransformCoord(&vLlookWorld, &vLlookWorld, &R);
 
 
 	// Rebuild the view matrix to reflect changes.
 	buildView();
 	//buildWorldFrustumPlanes();
 
-	m_viewProj = m_view * m_proj;
+	viewProjMat = viewMat * projMat;
 }
 
 void Camera::buildView()
 {
-	D3DXMatrixLookAtLH(&m_view, &m_posW, &m_lookW, &m_upW);
+	D3DXMatrixLookAtLH(&viewMat, &vPosWorld, &vLlookWorld, &vUpWorld);
 	// Keep camera's axes orthogonal to each other and of unit length.
 // 	D3DXVec3Normalize(&m_lookW, &m_lookW);
 // 

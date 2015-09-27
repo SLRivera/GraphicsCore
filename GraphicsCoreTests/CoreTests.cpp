@@ -40,8 +40,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, in
 	newFont.nFontHeight = 20;
 	newFont.nFontWidth = 10;
 	wcscpy_s(newFont.strFontName, L"Delicious-Roman");
-	newFont.textBoxDimens = { 00, 00, 300, 200 };
-	newFont.textColor = D3DCOLOR_XRGB(255, 0, 0);
+	newFont.fontBoxDimens = { 00, 00, 300, 200 };
+	newFont.fontColor = D3DCOLOR_XRGB(255, 0, 0);
 	
 	int fontId = GFX->loadFont(newFont);
 	GFX->setTextForFont(fontId, L"This now works better!");
@@ -51,8 +51,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, in
 	newFont.nFontHeight = 20;
 	newFont.nFontWidth = 10;
 	wcscpy_s(newFont.strFontName, L"Delicious-Roman");
-	newFont.textBoxDimens = { 300, 200, 600, 400 };
-	newFont.textColor = D3DCOLOR_XRGB(0, 255, 0);
+	newFont.fontBoxDimens = { 300, 200, 600, 400 };
+	newFont.fontColor = D3DCOLOR_XRGB(0, 255, 0);
 
 	int fontId2 = GFX->loadFont(newFont);
 	GFX->setTextForFont(fontId2, L"Second Font");

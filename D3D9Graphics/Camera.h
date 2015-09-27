@@ -7,13 +7,13 @@ namespace GFXCore
 	class Camera
 	{
 	public:
-		const D3DXMATRIX& view() const;
-		const D3DXMATRIX& proj() const;
-		const D3DXMATRIX& viewProj() const;
+		const D3DXMATRIX& getView() const;
+		const D3DXMATRIX& getProj() const;
+		const D3DXMATRIX& getViewProj() const;
 
-		const D3DXVECTOR3& right() const;
-		const D3DXVECTOR3& up() const;
-		const D3DXVECTOR3& look() const;
+		const D3DXVECTOR3& getRight() const;
+		const D3DXVECTOR3& getUp() const;
+		const D3DXVECTOR3& getLook() const;
 
 		D3DXVECTOR3& pos();
 
@@ -27,16 +27,16 @@ namespace GFXCore
 		~Camera() {}
 
 	protected:
-		D3DXMATRIX	m_view,
-			m_proj,
-			m_viewProj;
+		D3DXMATRIX	viewMat,
+							projMat,
+							viewProjMat;
 
-		D3DXVECTOR3	m_posW,
-			m_rightW,
-			m_upW,
-			m_lookW;
+		D3DXVECTOR3	vPosWorld,
+								vRigthWorld,
+								vUpWorld,
+								vLlookWorld;
 
-		float	m_speed;
+		float	fSpeed;
 
 		void buildView();
 	};

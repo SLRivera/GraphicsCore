@@ -7,11 +7,11 @@
 namespace GFXCore
 {
 	struct SpriteData {
+		wchar_t				strFileName[MAX_FILE_NAME];
 		D3DXVECTOR3	center;
 		D3DXVECTOR3	position;
 		RECT					clipRect;
 		D3DCOLOR			color;
-		wchar_t				strFileName[MAX_FILE_NAME];
 		int						nTextureId;
 		bool					bHasClipRect;
 		bool					bCenterIsTopLeft;

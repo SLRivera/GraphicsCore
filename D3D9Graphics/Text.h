@@ -5,12 +5,12 @@
 namespace GFXCore
 {
 	struct FontData{
-		RECT			textBoxDimens;
 		wchar_t		strFontName[MAX_FILE_NAME];
 		wchar_t		strText[MAX_FILE_NAME];
-		D3DCOLOR	textColor;
-		int		nFontHeight;
+		RECT			fontBoxDimens;
+		D3DCOLOR	fontColor;
 		int		nFontWidth;
+		int		nFontHeight;
 		ID3DXFont* pFont;
 		bool	bItalics;
 	};
