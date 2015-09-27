@@ -1,3 +1,12 @@
+/*!
+ * \file Sprites.cpp
+ *
+ * \author Sam Rivera
+ * \date 9/27/2015
+ *
+ * 
+ */
+
 #include "Sprites.h"
 
 using std::vector;

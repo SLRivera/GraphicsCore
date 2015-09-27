@@ -1,3 +1,11 @@
+/*!
+* \file Textures.h
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #pragma once
 #include <vector>
 #include "D3DUtils.h"
@@ -34,8 +42,10 @@ namespace GFXCore
 		static int nIdGenerator;
 	};
 
-
+	// TODO: Check of DEBUG out of bounds
 	IDirect3DTexture9* GFXCore::Textures::getTexture(const int id)	{ return texList[id].pTex; }
+	// TODO: Check for DEBUG out of bounds check
 	int Textures::getTextureHeight(const int id)	 const	{ return texList[id].nHeight; }
+	// TODO: Check for DEBUG out of bounds check
 	int Textures::getTextureWidth(const int id) const		{ return texList[id].nWidth; }
 }

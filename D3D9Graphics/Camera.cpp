@@ -1,3 +1,11 @@
+/*!
+ * \file Camera.cpp
+ *
+ * \author Sam Rivera
+ * \date 9/27/2015
+ *
+ * 
+ */
 #include "DirectInput.h"
 #include "Camera.h"
 

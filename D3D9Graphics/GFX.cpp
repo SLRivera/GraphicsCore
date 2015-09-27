@@ -1,3 +1,11 @@
+/*!
+* \file GFX.cpp
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #include "GFX.h"
 
 using namespace GFXCore;

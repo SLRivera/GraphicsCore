@@ -1,4 +1,11 @@
-
+/*!
+* \file Shaders.h
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #pragma once
 #include <vector>
 #include "D3DUtils.h"

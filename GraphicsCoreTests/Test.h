@@ -1,3 +1,11 @@
+/*!
+* \file test.h
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #pragma once
 #include "E:\School Materials\GSP420\Week 3\GraphicsCore\D3D9Graphics\ABC.h"
 

@@ -1,3 +1,11 @@
+/*!
+* \file Models.h
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #pragma once
 #include <vector>
 #include "D3DUtils.h"
@@ -56,23 +64,27 @@ namespace GFXCore
 		
 	};
 
+	// TODO: Check for DEBUG out of bounds check
 	void Models::setTranslation(const int id, const D3DXVECTOR3& newPos)
 	{
 		D3DXMatrixIdentity(&modelList[id].translationMat);
 		D3DXMatrixTranslation(&modelList[id].translationMat, newPos.x, newPos.y, newPos.z);
 	}
 
+	// TODO: Check for DEBUG out of bounds check
 	void Models::setRotation(const int id, const D3DXVECTOR3& newRot)
 	{
 		D3DXMatrixIdentity(&modelList[id].rotationMat);
 		D3DXMatrixRotationYawPitchRoll(&modelList[id].rotationMat, newRot.y, newRot.x, newRot.z);
 	}
 
+	// TODO: Check for DEBUG out of bounds check
 	void Models::setScaling(const int id, const D3DXVECTOR3& newScale)
 	{
 		D3DXMatrixIdentity(&modelList[id].scalingMat);
 		D3DXMatrixScaling(&modelList[id].scalingMat, newScale.x, newScale.y, newScale.z);
 	}
 
+	// TODO: Check for DEBUG out of bounds check
 	const XModelData& Models::getModelData(const int id) 	{ return modelList[id]; }
 }

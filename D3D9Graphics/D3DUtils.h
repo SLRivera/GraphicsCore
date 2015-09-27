@@ -1,3 +1,11 @@
+/*!
+* \file D3DUtils.h
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #pragma once
 #include <d3d9.h>
 #include <d3dx9.h>

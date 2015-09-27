@@ -1,3 +1,11 @@
+/*!
+* \file Text.h
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #pragma once
 #include <vector>
 #include "D3DUtils.h"
@@ -43,6 +51,7 @@ namespace GFXCore
 	int Text::getNumFonts()								{ return (int)fontList.size(); }
 	//FontData& Text::getFont(const int fontId)		{ return fontList[fontId]; }
 	
+	// TODO: Check for DEBUG out of bounds check
 	inline void Text::setText(const int fontId, const wchar_t* newText)
 	{
 		wcscpy_s(fontList[fontId].strText, newText);

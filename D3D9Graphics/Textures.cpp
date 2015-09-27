@@ -1,3 +1,11 @@
+/*!
+ * \file Textures.cpp
+ *
+ * \author Sam Rivera
+ * \date 9/27/2015
+ *
+ * 
+ */
 #include "Textures.h"
 
 using namespace GFXCore;

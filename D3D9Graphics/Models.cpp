@@ -1,3 +1,11 @@
+/*!
+ * \file Models.cpp
+ *
+ * \author Sam Rivera
+ * \date 9/27/2015
+ *
+ * 
+ */
 #include "Models.h"
 #include "Textures.h"
 #include "Vertex.h"

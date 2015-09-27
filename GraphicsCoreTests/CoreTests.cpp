@@ -1,3 +1,11 @@
+/*!
+ * \file CoreTests.cpp
+ *
+ * \author Sam Rivera
+ * \date 9/27/2015
+ *
+ * 
+ */
 #include "..\\D3D9Graphics\\GFX.h"
 #include "..\\D3D9Graphics\\ABC.h"
 #include "Test.h"

@@ -1,3 +1,11 @@
+/*!
+* \file Sprites.h
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #pragma once
 #include <vector>
 #include "D3DUtils.h"
@@ -49,6 +57,7 @@ namespace GFXCore
 		static int nIdGenerator;
 	};
 
+	// TODO: Check for DEBUG out of bounds check
 	SpriteData& Sprites::getSprite(const int id)		{ return spriteList[id]; }
 
 	void Sprites::beginDraw()	{ pSprite->Begin(D3DXSPRITE_ALPHABLEND); }

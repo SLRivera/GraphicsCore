@@ -1,3 +1,11 @@
+/*!
+* \file Camera.h
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #pragma once
 
 #include "D3DUtils.h"

@@ -1,9 +1,11 @@
-//=============================================================================
-// DirectInput.h
-//
-// Wraps initialization of immediate mode Direct Input, and provides 
-// information for querying the state of the keyboard and mouse.
-//=============================================================================
+/*!
+* \file DirectInput.h
+*
+* \author Sam Rivera
+* \date September 2015
+*
+* Last Revision: 9/23/15
+*/
 #pragma once
 
 #define DIRECTINPUT_VERSION 0x0800

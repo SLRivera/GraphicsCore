@@ -1,3 +1,11 @@
+/*!
+ * \file D3DCore.cpp
+ *
+ * \author Sam Rivera
+ * \date 9/27/2015
+ *
+ * 
+ */
 #include "GFX.h"
 #include "D3DCore.h"
 #include "Text.h"
