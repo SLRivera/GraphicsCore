@@ -36,9 +36,6 @@
     <ClInclude Include="GFX.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ABC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Shaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -52,6 +49,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="abc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

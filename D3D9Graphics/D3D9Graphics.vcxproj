@@ -95,7 +95,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ABC.h" />
+    <ClInclude Include="abc.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="D3DCore.h" />
     <ClInclude Include="D3DUtils.h" />

@@ -20,7 +20,7 @@
 // TODO: remove later
 #include "DirectInput.h"
 // TODO: Change to proper directory once integration begins
-#pragma comment (lib, "E:\\School Materials\\GSP420\\Week 3\\GraphicsCore\\Debug\\D3D9GraphicsD.lib")
+#pragma comment (lib, "../Debug/D3D9GraphicsD.lib")
 
 #define GFX		GFXCore::Graphics::get()
 /*!

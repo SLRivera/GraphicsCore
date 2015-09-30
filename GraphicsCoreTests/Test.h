@@ -7,7 +7,7 @@
 * Last Revision: 9/23/15
 */
 #pragma once
-#include "E:\School Materials\GSP420\Week 3\GraphicsCore\D3D9Graphics\ABC.h"
+#include "..\\D3D9Graphics\\abc.h"
 
 namespace GFXCore
 {
