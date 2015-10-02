@@ -23,20 +23,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, in
 	if (false == GFX->initModules())
 		return 0;
 
-	int m = GFX->loadModel(L"..\\GraphicsCoreTests\\Assets\\EnemyFighterBird.X", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.80f, 1.80f, 1.80f));
-//	GFX->cameraSetPos(D3DXVECTOR3(0.0f, 0.0f, -0.0f));
+	int m = GFX->loadModel(L"..\\GraphicsCoreTests\\Assets\\enemyBat.X", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.80f, 1.80f, 1.80f));
+	int n = GFX->loadModel(L"..\\GraphicsCoreTests\\Assets\\enemySaucer.X", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.80f, 1.80f, 1.80f));
+	int o = GFX->loadModel(L"..\\GraphicsCoreTests\\Assets\\finalBoss.x", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.80f, 1.80f, 1.80f));
+	int p = GFX->loadModel(L"..\\GraphicsCoreTests\\Assets\\playerSpaceShip.X", D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.80f, 1.80f, 1.80f));
+	//	GFX->cameraSetPos(D3DXVECTOR3(0.0f, 0.0f, -0.0f));
 	GFX->cameraSetLens(GFX->windowWidth(), GFX->windowHeight(), -1000.0f, 1000.0f);
 
 	Test obj1 = Test(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.050f, 0.050f, 0.050f));
 	obj1.init(m, -1);
-	Test obj2 = Test(D3DXVECTOR3(0.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.050f, 0.050f, 0.050f));
-	obj2.init(m, -1);
-	Test obj3 = Test(D3DXVECTOR3(0.0f, -300.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.050f, 0.050f, 0.050f));
-	obj3.init(m, -1);
-	Test obj4 = Test(D3DXVECTOR3(400.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.050f, 0.050f, 0.050f));
-	obj4.init(m, -1);
-	Test obj5 = Test(D3DXVECTOR3(-400.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.050f, 0.050f, 0.050f));
-	obj5.init(m, -1);
+	Test obj2 = Test(D3DXVECTOR3(0.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	obj2.init(n, -1);
+	Test obj3 = Test(D3DXVECTOR3(0.0f, -300.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	obj3.init(o, -1);
+	Test obj4 = Test(D3DXVECTOR3(400.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	obj4.init(p, -1);
+	Test obj5 = Test(D3DXVECTOR3(-400.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(0.0f, -0.0f, -0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+	obj5.init(p, -1);
 
 	DirectInput di(hInstance, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
 	gDInput = &di;
@@ -74,22 +77,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, in
 
 	while (msg.message != WM_QUIT)
 	{
-		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-
 		if (GFX->isDeviceLost())
 			break;
 
 		GFX->addToModelRenderList(&obj5);
- 		GFX->addToModelRenderList(&obj1);
+		GFX->addToModelRenderList(&obj1);
 		GFX->addToModelRenderList(&obj2);
 		GFX->addToModelRenderList(&obj3);
 		GFX->addToModelRenderList(&obj4);
 		GFX->addToTextRenderList(textIds, 2);
 		GFX->renderScene();
+
+		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
 	}
 
 	GFX->shutdown();
