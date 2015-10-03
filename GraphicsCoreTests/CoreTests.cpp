@@ -2,6 +2,7 @@
  * \file CoreTests.cpp
  *
  * \author Sam Rivera
+ // also edited by Joshua Silvers
  * \date 9/27/2015
  *
  * 
