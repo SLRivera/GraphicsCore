@@ -15,7 +15,7 @@ using std::vector;
 namespace GFXCore
 {
 	struct TexureData {
-		wchar_t		strFileName[256];
+		wchar_t		strFileName[MAX_FILE_NAME];
 		IDirect3DTexture9* pTex;
 		int		nWidth;
 		int		nHeight;

@@ -141,8 +141,6 @@ namespace GFXCore
 		//				after loading
 		//************************************
 		int loadTexture(const wchar_t* fileName);
-		int getTextureWidth(const int id);	// TODO: might make private
-		int getTextureHeight(const int id); // TODO: might make private
 
 		//************************************
 		// Method:    loadModel
@@ -231,7 +229,7 @@ namespace GFXCore
 		// Parameter: const D3DXVECTOR3 & position
 		// Notes: NONE
 		//************************************
-		void updateSprite(const int id, const D3DXVECTOR3& position);
+		void updateSprite(const int id, const D3DXVECTOR3& position); // TODO: Add clipRect update functionality
 
 		//************************************
 		// Method:    loadSprite
@@ -255,7 +253,26 @@ namespace GFXCore
 							const D3DXVECTOR3& initPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f),
 							D3DCOLOR initColor = D3DCOLOR_RGBA(255, 255, 255, 255),
 							RECT* clipRect = NULL);
+		//************************************
+		// Method:    getSpriteWidth
+		// FullName:  GFXCore::Graphics::getSpriteWidth
+		// Access:    public 
+		// Returns:   int - the width of the sprite
+		// Qualifier:
+		// Parameter: const int id - the id of the sprite you want the width for
+		// Notes: returns the width of the sprite referenced by the id
+		//************************************
 		int getSpriteWidth(const int id);
+
+		//************************************
+		// Method:    getSpriteHeight
+		// FullName:  GFXCore::Graphics::getSpriteHeight
+		// Access:    public 
+		// Returns:   int - the height of the sprite
+		// Qualifier:
+		// Parameter: const int id - the id of the sprite you want the height of
+		// Notes: access to the height of the sprite referenced by the id
+		//************************************
 		int getSpriteHeight(const int id);
 
 		//************************************
@@ -383,6 +400,8 @@ namespace GFXCore
 
 		static inline void del();
 		void updateCamera(const float dt);
+		int getTextureWidth(const int id);	
+		int getTextureHeight(const int id); 
 
 		Graphics();
 		Graphics(const Graphics&);

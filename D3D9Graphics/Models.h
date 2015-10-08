@@ -4,7 +4,7 @@
 * \author Sam Rivera
 * \date September 2015
 *
-* Last Revision: 9/23/15
+* Last Revision: 10/4/15
 */
 #pragma once
 #include <vector>
@@ -21,12 +21,12 @@ namespace GFXCore
 		D3DXMATRIX		rotationMat;
 		D3DXMATRIX		scalingMat;
 		D3DXMATRIX		worldTranformMat;
+		wchar_t				strFileName[MAX_FILE_NAME];
 		ID3DXMesh*		pMesh;
 		ID3DXBuffer*		pAdjacency;
 		ID3DXBuffer*		pMaterials;
 		ID3DXBuffer*		pEffectInstances;
 		DWORD				dwNumMaterials;
-		wchar_t				strFileName[MAX_FILE_NAME];
 		int						nShaderId;
 	};
 
@@ -64,27 +64,38 @@ namespace GFXCore
 		
 	};
 
-	// TODO: Check for DEBUG out of bounds check
 	void Models::setTranslation(const int id, const D3DXVECTOR3& newPos)
 	{
+#if defined (DEBUG) | defined(_DEBUG)
+		CHECK_OUT_OF_BOUNDS(id, (int)modelList.size());
+#endif
 		D3DXMatrixIdentity(&modelList[id].translationMat);
 		D3DXMatrixTranslation(&modelList[id].translationMat, newPos.x, newPos.y, newPos.z);
 	}
 
-	// TODO: Check for DEBUG out of bounds check
 	void Models::setRotation(const int id, const D3DXVECTOR3& newRot)
 	{
+#if defined (DEBUG) | defined(_DEBUG)
+		CHECK_OUT_OF_BOUNDS(id, (int)modelList.size());
+#endif
 		D3DXMatrixIdentity(&modelList[id].rotationMat);
 		D3DXMatrixRotationYawPitchRoll(&modelList[id].rotationMat, newRot.y, newRot.x, newRot.z);
 	}
 
-	// TODO: Check for DEBUG out of bounds check
 	void Models::setScaling(const int id, const D3DXVECTOR3& newScale)
 	{
+#if defined (DEBUG) | defined(_DEBUG)
+		CHECK_OUT_OF_BOUNDS(id, (int)modelList.size());
+#endif
 		D3DXMatrixIdentity(&modelList[id].scalingMat);
 		D3DXMatrixScaling(&modelList[id].scalingMat, newScale.x, newScale.y, newScale.z);
 	}
 
-	// TODO: Check for DEBUG out of bounds check
-	const XModelData& Models::getModelData(const int id) 	{ return modelList[id]; }
+	const XModelData& Models::getModelData(const int id) 	
+	{
+// #if defined (DEBUG) | defined(_DEBUG)
+// 		CHECK_OUT_OF_BOUNDS(id, (int)modelList.size());
+// #endif
+		return modelList[id];
+	}
 }
